@@ -1,0 +1,15 @@
+version: '3'
+
+tasks:
+  dev:
+    cmds:
+      - poetry run uvicorn wallstr.main:app --reload
+    desc: "Run the API server in development mode"
+  worker:
+    cmds:
+      - poetry run rq worker default
+    desc: "Start a background job worker"
+  worker:heavy:
+    cmds:
+      - poetry run rq worker heavy
+    desc: "Start the heavy-queue worker"

@@ -10,7 +10,7 @@
   "scripts": {
     "build": "pnpm -F wallstr_frontend build",
     "start": "pnpm -F wallstr_frontend start",
-    "frontend:dev": "pnpm -F wallstr_frontend dev",
+    "frontend:dev": "cross-env SENTRY_SUPPRESS_TURBOPACK_WARNING=1 pnpm -F wallstr_frontend dev",
     "frontend:lint": "pnpm -F wallstr_frontend lint",
     "frontend:format:check": "pnpm -F wallstr_frontend format:check",
     "frontend:ts": "pnpm -F wallstr_frontend ts",
@@ -19,9 +19,9 @@
     "generate_openapi": "pnpm backend:generate_openapi && pnpm frontend:generate_openapi",
     "storybook": "pnpm -F wallstr_frontend storybook",
     "docker-compose": "docker-compose -f packages/backend/docker-compose.yaml up",
-    "backend:dev": "cd packages/backend && task dev",
-    "backend:worker": "cd packages/backend && task worker",
-    "backend:worker:heavy": "cd packages/backend && task worker:heavy",
+    "backend:dev": "cd packages/backend && poetry run uvicorn wallstr.server:app --reload",
+    "backend:worker": "cd packages/backend && poetry run python -m rq worker default",
+    "backend:worker:heavy": "cd packages/backend && poetry run python -m rq worker heavy",
     "backend:format": "cd packages/backend && task format",
     "backend:lint": "cd packages/backend && task lint",
     "backend:mypy": "cd packages/backend && task mypy",
@@ -34,6 +34,16 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
+    "cross-env": "^7.0.3",
     "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "import-in-the-middle": "^1.14.2",
+    "require-in-the-middle": "^7.5.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "import-in-the-middle": "1.14.2"
+    }
   }
 }

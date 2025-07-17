@@ -7,7 +7,7 @@
   },
   "packageManager": "pnpm@9.15.3",
   "scripts": {
-    "dev": "SENTRY_SUPPRESS_TURBOPACK_WARNING=1 next dev --turbopack",
+    "dev": "cross-env SENTRY_SUPPRESS_TURBOPACK_WARNING=1 next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -68,6 +68,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "chromatic": "^11.22.2",
+    "cross-env": "^7.0.3",
     "daisyui": "5.0.0-beta.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
